@@ -16,12 +16,10 @@ class Room(Room, ABC):
             print("\033[1;31mThe letter or number is invalid!\033[0;m")
 
     def CalculateSoldSeatsQuantity(self):
-        soldSeatsCount = 0
-        for row in range(0, self.numberOfRows):
-            for column in range(0, self.numberOfSeatsPerRow):
-                if self.seats[row][column] == "O":
-                    soldSeatsCount += 1
+        soldSeats = filter(lambda seat: seat == "O", (self.seats[row][column] for row in range(self.numberOfRows) for column in range(self.numberOfSeatsPerRow)))
+        soldSeatsCount = len(list(soldSeats))
         return soldSeatsCount
+
 
     def CalculateAvailableSeatsQuantity(self):
         soldSeatsCount = self.CalculateSoldSeatsQuantity()
